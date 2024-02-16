@@ -4,6 +4,7 @@
 
 * Golang
 * Vue js
+* Nginx
 * PostgreSQL
 * RabbitMQ
 * Docker
