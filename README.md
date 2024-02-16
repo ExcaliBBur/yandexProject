@@ -74,7 +74,7 @@ docker-compose build
 # If this is not the case - repeat, this is due to the nature of docker.
 docker-compose up server -d
 
-# $ - quantity of workers
+# $ - quantity of agents
 docker-compose up --scale agent=$ agent -d
 
 docker-compose up frontend -d
