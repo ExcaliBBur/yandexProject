@@ -52,7 +52,7 @@ func (r *ExpressionRepo) CreateTask(task entity.Task) error {
 		return err
 	}
 	defer query.Close()
-	query.Exec(query, task.ExpressionId, task.TaskId, task.Expression, task.Result)
+	query.Exec(task.ExpressionId, task.TaskId, task.Expression, task.Result)
 	return nil
 }
 
