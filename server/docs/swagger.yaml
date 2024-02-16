@@ -1,0 +1,206 @@
+definitions:
+  dto.ExpressionRequest:
+    properties:
+      expression:
+        type: string
+    type: object
+  dto.ExpressionResponse:
+    properties:
+      date_finish:
+        type: string
+      date_start:
+        type: string
+      expression:
+        type: string
+      id:
+        type: integer
+      is_error:
+        type: boolean
+      is_finished:
+        type: boolean
+      result:
+        type: number
+    type: object
+  entity.Duration:
+    properties:
+      div_duration:
+        maximum: 10000
+        minimum: 0
+        type: integer
+      heartbeat_duration:
+        maximum: 100
+        minimum: 1
+        type: integer
+      minus_duration:
+        maximum: 10000
+        minimum: 0
+        type: integer
+      mul_duration:
+        maximum: 10000
+        minimum: 0
+        type: integer
+      plus_duration:
+        maximum: 10000
+        minimum: 0
+        type: integer
+    type: object
+  entity.Worker:
+    properties:
+      hostname:
+        type: string
+      id:
+        type: integer
+      is_alive:
+        type: boolean
+      last_heartbeat:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /calculate:
+    post:
+      description: calculate expression
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ExpressionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Calculate expression
+      tags:
+      - calculate
+  /duration:
+    get:
+      description: get current duration
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Duration'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Duration'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get current duration
+      tags:
+      - duration
+    put:
+      description: update duration
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: update duration
+      tags:
+      - duration
+  /expression/{id}:
+    get:
+      description: get expression by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ExpressionResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get expression by id
+      tags:
+      - expression
+  /expressions:
+    get:
+      description: get expressions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/dto.ExpressionResponse'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List expression
+      tags:
+      - expression
+  /workers:
+    get:
+      description: get workers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/entity.Worker'
+              type: array
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List workers
+      tags:
+      - workers
+swagger: "2.0"

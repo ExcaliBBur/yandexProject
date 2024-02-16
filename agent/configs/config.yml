@@ -1,0 +1,6 @@
+max_workers: 5
+
+message-broker:
+  # url: "amqp://guest:guest@localhost:5672/"
+  url: "amqp://guest:guest@broker:5672/"
+

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 8081:80
+    
+  server:
+    build: ./server
+    command: ./server
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - broker
+    env_file:
+      - ./.env
+
+  agent:
+    build: ./agent
+    command: ./agent
+
+  db:
+    image: postgres:latest
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - 5432:5432/tcp
+
+  broker:
+    image: rabbitmq:3.12-management
+    ports:
+      - 15672:15672/tcp
+      - 5672:5672/tcp
