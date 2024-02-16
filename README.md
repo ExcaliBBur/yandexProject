@@ -1,6 +1,4 @@
-# Project Title
-
-Distributed arithmetic expression evaluator
+# Distributed arithmetic expression evaluator
 
 ## Technology stack
 
