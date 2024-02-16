@@ -98,6 +98,9 @@ func (s *ExpressionService) EvaluateAndUpdateExpression(expression entity.Expres
 			stack.Push(res)
 			taskId += 1
 		} else {
+			if char == "" {
+				continue
+			}
 			num, _ := strconv.ParseFloat(char, 64)
 			stack.Push(num)
 		}
