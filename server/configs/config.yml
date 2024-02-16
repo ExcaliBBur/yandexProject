@@ -2,8 +2,8 @@ port: "8080"
 clean_workers_delay_seconds: 120
 
 db:
-  host:     "localhost"
-  # host:     "db"
+  # host:     "localhost"
+  host:     "db"
   port:     "5432"
   username: "postgres"
   dbname:   "postgres"
@@ -11,6 +11,6 @@ db:
   migration_url: "file://migrations"
 
 message-broker:
-  url: "amqp://guest:guest@localhost:5672/"
-  # url: "amqp://guest:guest@broker:5672/"
+  # url: "amqp://guest:guest@localhost:5672/"
+  url: "amqp://guest:guest@broker:5672/"
 
