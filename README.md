@@ -60,7 +60,7 @@ Receives an expression to be evaluated from the server, evaluates it and sends t
 ### Prerequisites
 
 To start project you need:
--[Docker](https://www.docker.com/)
+* [Docker](https://www.docker.com/)
 
 ### Building from source
 
@@ -84,6 +84,7 @@ docker-compose up frontend -d
 ## How to work
 
 Go to the [localhost:8081](http://localhost:8081). Here you go.
+
 Endpoints you can see at [localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 
 ## How it works
