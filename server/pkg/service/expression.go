@@ -51,17 +51,7 @@ func (s *ExpressionService) ParseExpression(expression entity.Expression) (strin
 	if err != nil {
 		return "", err
 	}
-	postfixTokens, err := shuntingYard.Parse(infixTokens)
-	if err != nil {
-		return "", err
-	}
-
-	var postfix string
-	for _, t := range postfixTokens {
-		str := fmt.Sprintf("%v", t.Value)
-		postfix += str + " " // Конкатенация - зло.
-	}
-
+	postfix := infixToPostfix(infixTokens)
 	return postfix, nil
 }
 
@@ -200,4 +190,44 @@ func encode(task entity.Task) []byte {
 	json.NewEncoder(reqBodyBytes).Encode(task)
 
 	return reqBodyBytes.Bytes()
+}
+
+func infixToPostfix(infixTokens []string) string {
+	var operators utility.StringStack
+	result := ""
+	for _, char := range infixTokens {
+		if char == "(" {
+			operators.Push(char)
+		} else if char == ")" {
+			for operators.Size() != 0 && operators.Top() != "(" {
+				top := operators.Top()
+				result += top + " "
+				operators.Pop()
+			}
+			operators.Pop()
+		} else if char != "+" && char != "-" && char != "*" && char != "/" {
+			result += char + " "
+		} else {
+			for operators.Size() != 0 && hasHigherPrecedence(operators.Top(), char) && operators.Top() != "(" {
+				top := operators.Top()
+				result += top + " "
+				operators.Pop()
+			}
+			operators.Push(char)
+		}
+	}
+	for operators.Size() != 0 {
+		top := operators.Top()
+		result += top + " "
+		operators.Pop()
+	}
+	return result
+}
+
+func hasHigherPrecedence(target, source string) bool {
+	if (target == "*" || target == "/") && (source == "+" || source == "-") {
+		return true
+	} else {
+		return false
+	}
 }
