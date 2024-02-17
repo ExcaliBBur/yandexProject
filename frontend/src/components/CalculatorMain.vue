@@ -141,6 +141,7 @@ export default {
         return
       }
 
+      expression.expression = expression.expression.replaceAll(",", ".")
       const headers = {
         'X-Request-ID': expression.expression,
       }
